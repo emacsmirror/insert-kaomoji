@@ -1,4 +1,4 @@
-;;; kaomoji.el --- easily insert kaomojis -*- lexical-binding: t -*-
+;;; insert-kaomoji.el --- easily insert kaomojis -*- lexical-binding: t -*-
 
 ;; Author: Philip K. <philip@warpmail.net>
 ;; Version: 0.1.0
@@ -26,13 +26,13 @@
 ;;
 ;; This package tries to make it easier to use kaomojis, by using
 ;; `completing-read' and different categories. The main user functions
-;; are therefore `kaomoji-insert' to insert a kaomoji at point, and
-;; `kaomoji-insert-kill-ring' to push a kaomoji onto the kill ring.
+;; are therefore `insert-kaomoji' to insert a kaomoji at point, and
+;; `insert-kaomoji-into-kill-ring' to push a kaomoji onto the kill ring.
 ;;
 ;; The emoticons aren't stored in this file, but (usually) in the
 ;; KAOMOJIS file that should be in the same directory as this source
-;; file. This file is parsed by `kaomoji--parse-buffer' and then stored
-;; in `kaomoji-alist'.
+;; file. This file is parsed by `insert-kaomoji--parse-buffer' and then
+;; stored in `insert-kaomoji-alist'.
 ;;
 ;; The kaomojis in KAOMOJIS have been selected and collected from these
 ;; sites:
@@ -45,14 +45,14 @@
 
 ;;; Code:
 
-(defvar kaomoji--last-used (make-ring 32)
+(defvar insert-kaomoji--last-used (make-ring 32)
   "Ring of last kaomojis inserted.")
-(defvar kaomoji--last-category nil
+(defvar insert-kaomoji--last-category nil
   "Symbol of last category used to insert a kaomoji.")
 
 
 
-(defun kaomoji--parse-buffer (buf)
+(defun insert-kaomoji--parse-buffer (buf)
   "Parse a buffer BUF creating a alist.
 
 Categories are delimited by an group separator (ASCII 35), which
@@ -77,13 +77,13 @@ their unit components by unit separators (ASCII 37)."
         (goto-char end))
       records)))
 
-(defun kaomoji-parse-file (filename)
+(defun insert-kaomoji-parse-file (filename)
   "Parse FILENAME for a list of Kaomoji categories."
   (with-temp-buffer
     (insert-file-contents filename)
     (kaomoji--parse-buffer (current-buffer))))
 
-(defconst kaomoji-alist
+(defconst insert-kaomoji-alist
   (let* ((dir (if load-file-name
                   (file-name-directory load-file-name)
                 default-directory))
@@ -93,51 +93,52 @@ their unit components by unit separators (ASCII 37)."
 
 
 
-(defun kaomoji--select-kaomoji (category)
+(defun insert-kaomoji--select-kaomoji (category)
   "General function to interactively select a kaomoji.
 
-Will first query a category from `kaomoji-alist', then a specific
-kaomoji within the category. If CATEGORY is non-nil, don't query
-the user and just use that category instead."
-  (let* ((moods (mapcar #'car kaomoji-alist))
+Will first query a category from `insert-kaomoji-alist', then a
+specific kaomoji within the category. If CATEGORY is non-nil,
+don't query the user and just use that category instead."
+  (let* ((moods (mapcar #'car insert-kaomoji-alist))
          (category (or category (completing-read "Category: " moods nil t)))
-         (list (cdr (assoc category kaomoji-alist)))
+         (list (cdr (assoc category insert-kaomoji-alist)))
          (kaomoji (completing-read (format "Kaomoji (%s): " category) list)))
-    (setf kaomoji--last-category category)
-    (ring-insert kaomoji--last-used kaomoji)
+    (setf insert-kaomoji--last-category category)
+    (ring-insert insert-kaomoji--last-used kaomoji)
     kaomoji))
 
-(defun kaomoji--choose-kaomoji (arg)
+(defun insert-kaomoji--choose-kaomoji (arg)
   "Helper function to choose a kaomoji.
 
 No prefix argument opens a category then kaomoji menu, a single
 prefix ARG argument re-opens the last category, and a double prefix
 argument lists the last used kaomojis."
-  (cond ((and (>= arg 16) (< 0 (ring-size kaomoji--last-used)))
-         (completing-read "Last inserted Kaomojis: " (ring-elements kaomoji--last-used)))
-        ((>= arg 4) (kaomoji--select-kaomoji kaomoji--last-category))
+  (cond ((and (>= arg 16) (< 0 (ring-size insert-kaomoji--last-used)))
+         (completing-read "Last inserted Kaomojis: "
+                          (ring-elements insert-kaomoji--last-used)))
+        ((>= arg 4) (kaomoji--select-kaomoji insert-kaomoji--last-category))
         (t (kaomoji--select-kaomoji nil))))
 
 
 
 ;;;###autoload
-(defun kaomoji-insert-kill-ring (arg)
+(defun insert-kaomoji-into-kill-ring (arg)
   "Insert a kaomoji directly into `kill-ring'.
 
-See `kaomoji--choose-kaomoji' in regards to how the prefix argument
+See `insert-kaomoji--choose-kaomoji' in regards to how the prefix argument
 ARG is handled."
   (interactive "p")
-  (kill-new (kaomoji--choose-kaomoji arg)))
+  (kill-new (insert-kaomoji--choose-kaomoji arg)))
 
 ;;;###autoload
-(defun kaomoji-insert (arg)
+(defun insert-kaomoji (arg)
   "Insert a kaomoji directly into the current buffer.
 
-See `kaomoji--choose-kaomoji' in regards to how the prefix argument ARG
+See `insert-kaomoji--choose-kaomoji' in regards to how the prefix argument ARG
 is handled."
   (interactive "p")
-  (insert (kaomoji--choose-kaomoji arg)))
+  (insert (insert-kaomoji--choose-kaomoji arg)))
 
-(provide 'kaomoji)
+(provide 'insert-kaomoji)
 
-;;; kaomoji.el ends here
+;;; insert-kaomoji.el ends here
