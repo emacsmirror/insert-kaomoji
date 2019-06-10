@@ -81,14 +81,14 @@ their unit components by unit separators (ASCII 37)."
   "Parse FILENAME for a list of Kaomoji categories."
   (with-temp-buffer
     (insert-file-contents filename)
-    (kaomoji--parse-buffer (current-buffer))))
+    (insert-kaomoji--parse-buffer (current-buffer))))
 
 (defconst insert-kaomoji-alist
   (let* ((dir (if load-file-name
                   (file-name-directory load-file-name)
                 default-directory))
          (file (expand-file-name "KAOMOJIS" dir)))
-    (kaomoji-parse-file file))
+    (insert-kaomoji-parse-file file))
   "Alist of various kaomojis.")
 
 
@@ -116,8 +116,8 @@ argument lists the last used kaomojis."
   (cond ((and (>= arg 16) (< 0 (ring-size insert-kaomoji--last-used)))
          (completing-read "Last inserted Kaomojis: "
                           (ring-elements insert-kaomoji--last-used)))
-        ((>= arg 4) (kaomoji--select-kaomoji insert-kaomoji--last-category))
-        (t (kaomoji--select-kaomoji nil))))
+        ((>= arg 4) (insert-kaomoji--select-kaomoji insert-kaomoji--last-category))
+        (t (insert-kaomoji--select-kaomoji nil))))
 
 
 
