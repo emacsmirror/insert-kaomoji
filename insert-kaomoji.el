@@ -1,4 +1,4 @@
-;;; insert-kaomoji.el --- easily insert kaomojis -*- lexical-binding: t -*-
+;;; insert-kaomoji.el --- Easily insert kaomojis -*- lexical-binding: t -*-
 
 ;; Author: Philip K. <philip@warpmail.net>
 ;; Version: 0.1.0
