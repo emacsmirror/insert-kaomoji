@@ -37,6 +37,9 @@ These designate:
   synonyms are stripped of surrounding white spaces, _allowing_ new
   categories to start on new lines.
 
+Bug reports and patches should be sent to my [public inbox].
+
+
 Copying
 -------
 
@@ -45,4 +48,5 @@ Domain Dedication][cc0] license.
 
 [MELPA]: https://melpa.org/#/insert-kaomiji
 [ascii delim]: https://en.wikipedia.org/wiki/Delimiter#ASCII_delimited_text
+[public inbox]: https://lists.sr.ht/~zge/public-inbox
 [cc0]: https://creativecommons.org/publicdomain/zero/1.0/deed
