@@ -4,7 +4,7 @@
 ;; Version: 0.1.0
 ;; Package-Requires: ((emacs "24.4"))
 ;; Keywords: wp
-;; URL: https://git.sr.ht/~zge/kaomoji.el
+;; URL: https://git.sr.ht/~zge/kaomoji
 
 ;; This file is NOT part of Emacs.
 ;;
