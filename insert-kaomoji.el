@@ -64,7 +64,7 @@ their unit components by unit separators (ASCII 37)."
       (goto-char (point-min))
       (while (save-excursion (setq end (search-forward "" nil t)))
         (save-restriction
-          (narrow-to-region (point) end)
+          (narrow-to-region (point) (1- end))
           (let* ((names (split-string (buffer-substring
                                        (point-min)
                                        (1- (search-forward "")))
