@@ -15,7 +15,7 @@
 ;; https://creativecommons.org/publicdomain/zero/1.0/legalcode
 
 ;;; Commentary:
-;; 
+;;
 ;; Kaomojis are eastern/Japanese emoticons, which are usually displayed
 ;; horizontally, as opposed to the western vertical variants (":^)",
 ;; ";D", "XP", ...).
