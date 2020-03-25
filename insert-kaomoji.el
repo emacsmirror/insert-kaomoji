@@ -40,7 +40,7 @@
 ;; - http://kaomoji.ru/en/
 ;; - https://en.wikipedia.org/wiki/List_of_emoticons
 
-
+(require 'subr-x)
 (require 'ring)
 
 ;;; Code:
