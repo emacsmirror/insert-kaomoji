@@ -46,7 +46,7 @@ Copying
 `bang.el` is distributed under the [CC0 1.0 Universal (CC0 1.0) Public
 Domain Dedication][cc0] license.
 
-[MELPA]: https://melpa.org/#/insert-kaomiji
+[MELPA]: https://melpa.org/#/insert-kaomoji
 [ascii delim]: https://en.wikipedia.org/wiki/Delimiter#ASCII_delimited_text
 [public inbox]: https://lists.sr.ht/~zge/public-inbox
 [cc0]: https://creativecommons.org/publicdomain/zero/1.0/deed
