@@ -25,9 +25,10 @@
 ;; to type, or impossible if you don't know the symbols names/numbers.
 ;;
 ;; This package tries to make it easier to use kaomojis, by using
-;; `completing-read' and different categories. The main user functions
-;; are therefore `insert-kaomoji' to insert a kaomoji at point, and
-;; `insert-kaomoji-into-kill-ring' to push a kaomoji onto the kill ring.
+;; `completing-read' and different categories.  The main user
+;; functions are therefore `insert-kaomoji' to insert a kaomoji at
+;; point, and `insert-kaomoji-into-kill-ring' to push a kaomoji onto
+;; the kill ring.
 ;;
 ;; The emoticons aren't stored in this file, but (usually) in the
 ;; KAOMOJIS file that should be in the same directory as this source
@@ -85,7 +86,7 @@
   "General function to interactively select a kaomoji.
 
 Will first query a category from `insert-kaomoji-alist', then a
-specific kaomoji within the category. If CATEGORY is non-nil,
+specific kaomoji within the category.  If CATEGORY is non-nil,
 don't query the user and just use that category instead."
   (let* ((moods (mapcar #'car insert-kaomoji-alist))
          (category (or category (completing-read "Category: " moods nil t)))
