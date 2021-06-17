@@ -49,5 +49,5 @@ Domain Dedication][cc0] license.
 [MELPA]: https://melpa.org/#/insert-kaomoji
 [setup]: https://elpa.gnu.org/packages/setup.html
 [ascii delim]: https://en.wikipedia.org/wiki/Delimiter#ASCII_delimited_text
-[public inbox]: https://lists.sr.ht/~zge/public-inbox
+[public inbox]: https://lists.sr.ht/~pkal/public-inbox
 [cc0]: https://creativecommons.org/publicdomain/zero/1.0/deed
