@@ -31,8 +31,8 @@
 ;;
 ;; The emoticons aren't stored in this file, but (usually) in the
 ;; KAOMOJIS file that should be in the same directory as this source
-;; file. This file is parsed by `insert-kaomoji--parse-buffer' and then
-;; stored in `insert-kaomoji-alist'.
+;; file.  This file is parsed during byte-compilation and then stored
+;; in `insert-kaomoji-alist'.
 ;;
 ;; The kaomojis in KAOMOJIS have been selected and collected from these
 ;; sites:
@@ -52,43 +52,31 @@
 
 
 
-(defun insert-kaomoji--parse-buffer (buf)
-  "Parse a buffer BUF creating a alist.
-
-Categories are delimited by an group separator (ASCII 35), which
-are in turn split into tags and kaomojis. These two are kept apart
-by a record separator (ASCII 36). Both tags and kaomojis split
-their unit components by unit separators (ASCII 37)."
-  (with-current-buffer buf
-    (let (records end)
-      (goto-char (point-min))
-      (while (save-excursion (setq end (search-forward "" nil t)))
-        (save-restriction
-          (narrow-to-region (point) (1- end))
-          (let* ((names (split-string (buffer-substring
-                                       (point-min)
-                                       (1- (search-forward "")))
-                                      ""))
-                 (kaomojis (split-string (buffer-substring
-                                         (point) (point-max)) "")))
-            (dolist (name names)
-              (push (cons (string-trim-left name) kaomojis)
-                    records))))
-        (goto-char end))
-      records)))
-
-(defun insert-kaomoji-parse-file (filename)
-  "Parse FILENAME for a list of Kaomoji categories."
-  (with-temp-buffer
-    (insert-file-contents filename)
-    (insert-kaomoji--parse-buffer (current-buffer))))
-
 (defconst insert-kaomoji-alist
-  (let* ((dir (if load-file-name
-                  (file-name-directory load-file-name)
-                default-directory))
-         (file (expand-file-name "KAOMOJIS" dir)))
-    (insert-kaomoji-parse-file file))
+  (eval-when-compile
+    (let* ((dir (file-truename
+                 (if load-file-name
+                     (file-name-directory load-file-name)
+                   default-directory)))
+           (file (expand-file-name "KAOMOJIS" dir)))
+      (with-temp-buffer
+        (insert-file-contents file)
+        (let (records end)
+          (goto-char (point-min))
+          (while (save-excursion (setq end (search-forward "" nil t)))
+            (save-restriction
+              (narrow-to-region (point) (1- end))
+              (let* ((names (split-string (buffer-substring
+                                           (point-min)
+                                           (1- (search-forward "")))
+                                          ""))
+                     (kaomojis (split-string (buffer-substring
+                                              (point) (point-max)) "")))
+                (dolist (name names)
+                  (push (cons (string-trim-left name) kaomojis)
+                        records))))
+            (goto-char end))
+          records))))
   "Alist of various kaomojis.")
 
 
