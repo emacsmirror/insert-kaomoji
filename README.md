@@ -11,11 +11,11 @@ described below.
 How to use
 ----------
 
-Using [MELPA] and `use-package`, a minimal setup might look something like
+Using [MELPA] and [setup], a minimal setup might look something like
 this:
 
-	(use-package insert-kaomoji
-	  :bind ("C-x 8 k" . insert-kaomoji))
+    (setup insert-kaomoji
+      (:global "C-x 8 k" insert-kaomoji))
 
 `KAOMOJIS` format
 -----------------
@@ -47,6 +47,7 @@ Copying
 Domain Dedication][cc0] license.
 
 [MELPA]: https://melpa.org/#/insert-kaomoji
+[setup]: https://elpa.gnu.org/packages/setup.html
 [ascii delim]: https://en.wikipedia.org/wiki/Delimiter#ASCII_delimited_text
 [public inbox]: https://lists.sr.ht/~zge/public-inbox
 [cc0]: https://creativecommons.org/publicdomain/zero/1.0/deed
