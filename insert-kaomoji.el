@@ -54,30 +54,31 @@
 
 
 (defconst insert-kaomoji-alist
-  (eval-when-compile
-    (let* ((dir (file-truename
-                 (if load-file-name
-                     (file-name-directory load-file-name)
-                   default-directory)))
-           (file (expand-file-name "KAOMOJIS" dir)))
-      (with-temp-buffer
-        (insert-file-contents file)
-        (let (records end)
-          (goto-char (point-min))
-          (while (save-excursion (setq end (search-forward "" nil t)))
-            (save-restriction
-              (narrow-to-region (point) (1- end))
-              (let* ((names (split-string (buffer-substring
-                                           (point-min)
-                                           (1- (search-forward "")))
-                                          ""))
-                     (kaomojis (split-string (buffer-substring
-                                              (point) (point-max)) "")))
-                (dolist (name names)
-                  (push (cons (string-trim-left name) kaomojis)
-                        records))))
-            (goto-char end))
-          records))))
+  (with-temp-buffer
+    (insert-file-contents
+     (expand-file-name
+      "KAOMOJIS"
+      (file-truename
+       (if load-file-name
+           (file-name-directory load-file-name)
+         default-directory))))
+    (let (records end)
+      (goto-char (point-min))
+      (while (save-excursion (setq end (search-forward "" nil t)))
+        (save-restriction
+          (narrow-to-region (point) (1- end))
+          (let* ((names (split-string (buffer-substring
+                                       (point-min)
+                                       (1- (search-forward "")))
+                                      ""))
+                 (kaomojis (split-string (buffer-substring
+                                          (point) (point-max))
+                                         "")))
+            (dolist (name names)
+              (push (cons (string-trim-left name) kaomojis)
+                    records))))
+        (goto-char end))
+      records))
   "Alist of various kaomojis.")
 
 
