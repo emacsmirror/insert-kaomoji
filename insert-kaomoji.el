@@ -1,6 +1,7 @@
 ;;; insert-kaomoji.el --- Easily insert kaomojis -*- lexical-binding: t -*-
 
-;; Author: Philip K. <philip@warpmail.net>
+;; Author: Philip Kaludercic <philipk@posteo.net>
+;; Maintainer: Philip Kaludercic <~pkal/public-inbox@lists.sr.ht>
 ;; Version: 0.1.0
 ;; Package-Requires: ((emacs "24.4"))
 ;; Keywords: wp
